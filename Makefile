@@ -1,15 +1,15 @@
 .DEFAULT_GOAL := all
 
-src/rs_to_openssl.o: src/rs_to_openssl.c include/rs_to_openssl.h
-	gcc -c src/rs_to_openssl.c -I include -o src/rs_to_openssl.o
+src/asn1.o: src/asn1.c include/asn1.h
+	gcc -c src/asn1.c -I include -o src/asn1.o
 
-librs_to_openssl.a: src/rs_to_openssl.o
-	ar rcs librs_to_openssl.a src/rs_to_openssl.o
+libasn1.a: src/asn1.o
+	ar rcs libasn1.a src/asn1.o
 
-test: test/main.c librs_to_openssl.a
-	gcc test/main.c -o test/test -L . -l rs_to_openssl -I include
+test: test/main.c libasn1.a
+	gcc test/main.c -o test/test -L . -l asn1 -I include
 
-all: librs_to_openssl.a
+all: libasn1.a
 
 clean:
-	rm -rf librs_to_openssl.a src/rs_to_openssl.o test/test
+	rm -rf libasn1.a src/asn1.o test/test
